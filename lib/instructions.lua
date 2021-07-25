@@ -9,8 +9,10 @@ instructions.display = function ()
   screen.move(5, 28)
 
   if (nav_active_control == 1) then
-    screen.text("e3: incr/decr playhead")
+    screen.text("k2: select sample")
     screen.move(5, 36)
+    screen.text("e3: incr/decr playhead")
+    screen.move(5, 44)
     screen.text("k3: start/stop playhead")
   elseif (nav_active_control == 2) then
     screen.text("k2/k3: delete/add cutter")
