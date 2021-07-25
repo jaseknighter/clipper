@@ -35,8 +35,7 @@ note: access these instructions within the script by pressing k1+e3
 * Screen 5: autogenerate cutters
   * k2/k3: delete/add cutter
   * e3: # autogen clips
-  * PARAMS>EDIT: save clips
-  * to dust/audio/clipper/
+  * PARAMS>EDIT: save clips to dust/audio/clipper/
 
 ## Requirements
 norns
