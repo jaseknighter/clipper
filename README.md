@@ -33,7 +33,7 @@ note: access these instructions within the script by pressing k1+e3
   * k2/k3: delete/add cutter
   * e3: adjust level
 * Screen 5: autogenerate cutters
-  * e3: set # of clips to autogenerate
+  * e3: set # of clips to autogenerate (up to 20)
   * k2: autogenerate clips
   * PARAMS>EDIT: save clips to dust/audio/clipper/
 
