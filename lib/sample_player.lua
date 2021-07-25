@@ -517,8 +517,7 @@ function sample_player.enc(n,d)
         level = util.clamp(level+(d)/100,0,1)
         softcut.level(1,level)
       elseif nav_active_control == 7 then
-        autogen = autogen+d
-        autogen = autogen > 0 and autogen or 1
+        autogen = util.clamp(autogen+d,1,20)
         -- sample_player.set_record_mode(new_record_mode)
       end
     end
