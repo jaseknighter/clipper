@@ -354,7 +354,7 @@ function sample_player.key(n,z)
         -- local new_cutter_finish_x = new_cutter_start_x + (cutters[active_cutter]:get_finish_x() - cutters[active_cutter]:get_start_x())
     
         table.insert(cutters, active_cutter+1, Cutter:new(active_cutter+1, new_cutter_start_x, new_cutter_finish_x))
-        table.insert(cutter_rates, active_cutter+1,1)
+        table.insert(cutter_rates, active_cutter+1,cutter_rates[active_cutter])
         sample_player.cutters_start_finish_update()
       end
       for i=1,#cutters,1
