@@ -1,5 +1,5 @@
 # clipper
- slice and save samples for monome norns
+slice and save samples for monome norns
 
 ## instructions
 

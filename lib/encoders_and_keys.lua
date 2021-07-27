@@ -32,9 +32,9 @@ local enc = function (n, d)
           end
         elseif nav_active_control == 4 then
           if alt_key_active == true then
-            for i=#cutters,1,-1
+            for i=1,#cutters,1
             do  
-              if (d<0 and cutters[i]:get_start_x() == 0) or (d>0 and cutters[i]:get_finish_x() == 128) then
+              if i == selected_cutter_group and (d<0 and cutters[i]:get_start_x() == 0) or (d>0 and cutters[i]:get_finish_x() == 128) then
                 break
               elseif i == selected_cutter_group then
                 cutters[i]:set_start_x(util.clamp(cutters[i]:get_start_x()+(d*1),0,cutters[i]:get_finish_x()))
@@ -105,7 +105,6 @@ local enc = function (n, d)
           local r = cutter_rates[active_cutter]
           local adj_amt = (d>0) and (r>0 and 0.05 or 0.001) or (r>0 and 0.001 or 0.05)
           sample_position = util.clamp(sample_position + (d*adj_amt),0, 1)
-          print(sample_position)
           softcut.position(1,sample_position*length)
           softcut.position(2,sample_position*length)
         elseif nav_active_control == 2 then
@@ -128,9 +127,9 @@ local enc = function (n, d)
           end
         elseif nav_active_control == 4 then
           if alt_key_active == true then
-            for i=#cutters,1,-1
+            for i=1,#cutters,1
             do  
-              if (d<0 and cutters[i]:get_start_x() == 0) or (d>0 and cutters[i]:get_finish_x() == 128) then
+              if i == selected_cutter_group  and (d<0 and cutters[i]:get_start_x() == 0) or (d>0 and cutters[i]:get_finish_x() == 128) then
                 break
               elseif i == selected_cutter_group then
                 cutters[i]:set_start_x(util.clamp(cutters[i]:get_start_x()+(d*1),0,cutters[i]:get_finish_x()))
@@ -250,7 +249,6 @@ local key = function (n,z)
       end
     end
     if (not waveform_loaded or nav_active_control == 1) and n==2 and z==1 then
-      print(n,z)
       screen.clear()
       selecting = true
       fileselect.enter(_path.dust,sample_player.load_file)
