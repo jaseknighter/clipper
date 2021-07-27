@@ -2,11 +2,12 @@
  slice and save samples for monome norns
 
 ## instructions
-note: access these instructions within the script by pressing k1+e3
+
+### key/encoder functions
+note: access instructions for key/encoder functions within the script by pressing k1+e3
 
 * All screens
-  * k2: next/prev control
-
+  * e2: next/prev control
 * Screen 1: select/play sample 
   * k2: select sample to slice up
   * e3: incr/decr playhead
@@ -19,6 +20,7 @@ note: access these instructions within the script by pressing k1+e3
   * k1 + e2: select cutter
   * k1 + e3: adjust cutter
   * k1 + e1: fine adjust cutter
+  * e3: select cutter end
 * Screen 4: move cutter
   * k2/k3: delete/add cutter
   * k1 + e2: select cutter
@@ -27,18 +29,26 @@ note: access these instructions within the script by pressing k1+e3
 * Screen 5: adjust rate
   * k2/k3: delete/add cutter
   * k1 + e2: select rate
-  * e3: adjust rate
+  * e3: adjust all cutter rates
   * k1 + e1: fine adjust rate
-* Screen 5: adjust level
+  * k1 + e3: adjust selected cutter rate
+* Screen 6: adjust level
   * k2/k3: delete/add cutter
   * e3: adjust level
-* Screen 5: autogenerate cutters
+* Screen 7: autogenerate cutters
   * e3: set # of clips to autogenerate (up to 20)
-  * k2: autogenerate clips
-  * PARAMS>EDIT: save clips to dust/audio/clipper/
 
-## Requirements
+### recording clips
+clips may be recorded from the PARAMETERS>EDIT menu. what gets recorded depends on the `play mode` setting:
+* stop: record the entire sample 
+* full loop: record the entire sample 
+* all cuts: record all sample areas set by cutters
+* sel cut: record the sample area set by the selected cutter
+
+*important note*: if *play mode* is set to `all cuts`, all *rate* settings must either be positive or negative. 
+
+## requirements
 norns
 
-## Credits
-thanks to Zack Scholl @schollz/@infinitedigits and @catfact/@zebra for coding advice
+## credits
+many thanks to @schollz and @catfact for their excellent coding advice.

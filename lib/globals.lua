@@ -24,13 +24,16 @@ screen_level_graphics = 15
 screen_size = vector:new(127,64)
 center = vector:new(screen_size.x/2, screen_size.y/2)
 pages = 1 -- WHAT IS THIS FOR?!?!?
-num_pages = 5
+num_pages = 1
 
 menu_status = norns.menu.status()
 clear_subnav = true
-screen_dirty = true
+-- screen_dirty = true
 show_instructions = false
 
 initializing = true
+saving = false
+saving_elipses = ""
+pre_save_play_mode = false
 
 

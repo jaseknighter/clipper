@@ -16,6 +16,7 @@ globals = include "clipper/lib/globals"
 
 encoders_and_keys = include "clipper/lib/encoders_and_keys"
 sample_player = include "clipper/lib/sample_player"
+sample_recorder = include "clipper/lib/sample_recorder"
 instructions = include "clipper/lib/instructions"
 include "clipper/lib/Cutter"
 -- cutup_pages = include("clipper/lib/cutup_pages")
