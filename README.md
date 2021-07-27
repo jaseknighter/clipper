@@ -3,8 +3,8 @@
 
 ## instructions
 
-### key/encoder functions
-note: access instructions for key/encoder functions within the script by pressing k1+e3
+### key/encoder controls
+access instructions for key/encoder controls within the script by pressing k1+e3
 
 * All screens
   * e2: next/prev control
@@ -40,10 +40,10 @@ note: access instructions for key/encoder functions within the script by pressin
 
 ### recording clips
 clips may be recorded from the PARAMETERS>EDIT menu. what gets recorded depends on the `play mode` setting:
-* stop: record the entire sample 
-* full loop: record the entire sample 
-* all cuts: record all sample areas set by cutters
-* sel cut: record the sample area set by the selected cutter
+* *stop*: record the entire sample 
+* *full loop*: record the entire sample 
+* *all cuts*: record all sample areas set by cutters
+* *sel cut*: record the sample area set by the selected cutter
 
 *important note*: if *play mode* is set to `all cuts`, all *rate* settings must either be positive or negative. 
 
