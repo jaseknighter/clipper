@@ -4,11 +4,11 @@
 sample_recorder = {}
 
 function sample_recorder.save_samples(dir_name, incr)
-  if incr == nil then incr = 1 end
   local pathname1 = _path.dust.."audio/clipper/"
   local pathname2 = incr == nil and
     _path.dust.."audio/clipper/" .. dir_name or 
     _path.dust.."audio/clipper/" .. dir_name  .. "_" .. incr
+  if incr == nil then incr = 0 end
   if os.rename(pathname1, pathname1) == nil then -- create cutter dir, if neca
     os.execute("mkdir " .. pathname1)
   end
@@ -32,7 +32,6 @@ end
 
 function sample_recorder.record_to_tape_start(cutter_to_record,ending_cutter,dir_name,pathname)
   local loop_length
-  -- if cutter_to_record <= #cutters then
   local file = pathname.."/"..dir_name .. cutter_to_record .. ".wav"
   if pre_save_play_mode > 1 and cutter_to_record <= ending_cutter then
     audio.tape_record_open (file)
@@ -77,8 +76,8 @@ end
 
 function sample_recorder.record_to_tape_next(wait, next_loop, ending_cutter, dir_name, pathname)
   clock.sleep(wait)
-  -- stop the recording
   -- print("loop done",next_loop,dir_name,pathname)
+  -- stop the recording
   softcut.play(1,0)
   audio.tape_record_stop ()
   if pre_save_play_mode == 2 then
@@ -94,7 +93,7 @@ function sample_recorder.record_to_tape_pause(next_loop, ending_cutter, dir_name
 end
 
 function sample_recorder.record_to_tape_done()
-  print("done",pre_save_play_mode)
+  print("done. reset play mode:",pre_save_play_mode)
   saving = false
   sample_player.set_play_mode(pre_save_play_mode)
 end

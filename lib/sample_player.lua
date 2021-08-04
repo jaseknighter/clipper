@@ -1,5 +1,6 @@
--- from softcut study 8: copy
---
+--------------------------
+-- play samples
+--------------------------
 saved = "..."
 level = 1.0
 rec = 1.0
@@ -22,7 +23,7 @@ selected_cutter_group = 1
 
 play_mode = 1 
 record_mode = 2
-autogen = 5
+autogen = 1 --5
 cutter_start_x_sec, cutter_finish_x_sec = nil
 cutter_to_play = 1
 
@@ -48,13 +49,6 @@ play_mode_text = {
   "sel cut",
 }
 
--- record_mode_text = {
---   "entire sample",
---   "all clips",
---   "selected clip",
---   "autogenerate",
--- }
-
 sample_player = {}
 
 function sample_player.load_file(file)
@@ -72,6 +66,7 @@ function sample_player.load_file(file)
     sample_player.init_cutters()
     sample_player.reset()
     waveform_loaded = true
+    clock.run(cut_detector.set_height_start)
   else
     sample_player.update()
   end
@@ -81,11 +76,8 @@ function sample_player.reset()
   for i=1,2 do
     softcut.enable(i,1)
     softcut.buffer(i,i)
-    -- softcut.level(1,1.0)
     softcut.loop(i,1)
     if cutters[1] then
-      -- softcut.loop_start(i,1)
-      -- softcut.loop_end(i,1+length)
       if play_mode > 1 then
         if play_mode == 3 then cutter_to_play = selected_cutter_group end
         cutter_start_x_sec = util.linlin(10,120,0,length,cutters[cutter_to_play]:get_start_x_updated())
@@ -129,23 +121,6 @@ function sample_player.set_play_mode(mode)
   end
 end
 
--- function sample_player.set_record_mode(mode)
---   -- mode 1: entire sample
---   -- mode 2: all clips
---   -- mode 3: selected clip
---   -- mode 4: autogenerate
---   record_mode = mode
---   if record_mode == 1 then
-
---   elseif record_mode == 2 then
-  
---   elseif record_mode == 3 then
-
---   elseif record_mode == 4 then
-
---   end
--- end
-  
 -- function sample_player.copy_cut()
 --   local rand_copy_end = math.random(1,util.round(length))
 --   local rand_copy_start = math.random(1,util.round(rand_copy_end - (rand_copy_end/10)))
@@ -169,10 +144,8 @@ function sample_player.cutters_start_finish_update()
   for i=1,#cutters,1
   do
     if cutters[i] then
-
       local start_x = cutters[i]:get_start_x()
       local finish_x = cutters[i]:get_finish_x()
-
       start_x = util.linlin(0,128,10,120,cutters[i]:get_start_x())
       finish_x = util.linlin(0,128,10,120,cutters[i]:get_finish_x())
       cutters[i]:cutters_start_finish_update(
@@ -185,11 +158,7 @@ end
 local reset_cutter_to_play = false
 function sample_player.playhead_position_update(i,pos)
   sample_position = (pos - 1) / length
-  -- if play_mode > 1 and cutter_finish_x_sec then
-  -- if play_mode > 1 and last_sample_position then
   if cutters[cutter_to_play] then
-    -- cutter_start_x_sec = util.linlin(10,120,1,length,cutters[cutter_to_play]:get_start_x_updated())
-    -- cutter_finish_x_sec = util.linlin(10,120,1,length,cutters[cutter_to_play]:get_finish_x_updated()) 
     local next_cutter_to_play = util.wrap(cutter_to_play+1,1,#cutters)
     local rate = play_mode < 2 and cutter_rates[1] or cutter_rates[next_cutter_to_play]
     if (rate > 0 and sample_position < last_sample_position) or 
@@ -200,7 +169,6 @@ function sample_player.playhead_position_update(i,pos)
         else
           sample_position = last_sample_position + 1
         end
-        -- cutter_to_play = util.wrap(cutter_to_play+1,1,#cutters)
         cutter_to_play = next_cutter_to_play
         cutter_start_x_sec = util.linlin(10,120,1,length,cutters[cutter_to_play]:get_start_x_updated())
         cutter_finish_x_sec = util.linlin(10,120,1,length,cutters[cutter_to_play]:get_finish_x_updated()) 
@@ -227,7 +195,6 @@ function sample_player.playhead_position_update(i,pos)
 end
 
 function sample_player.update_content(buffer,winstart,winend,samples)
-  -- render_buffer (ch, start, dur, samples)
   softcut.render_buffer(buffer, winstart, winend - winstart, 128)
 end
 --/ WAVEFORMS
@@ -258,32 +225,71 @@ end
 
 function sample_player.autogenerate_cutters(a)
   if waveform_loaded and nav_active_control > 1 then
-    cutters = {}
-    cutter_rates = {}
-    local cutter1_start_x = 0
-    local cutter1_finish_x = 128/a
-    cutters[1] = Cutter:new(1,cutter1_start_x,cutter1_finish_x)
-    cutter_rates[1] = 1
+    -- make evenly spaced cuts
+    if  alt_key_active then
+      cutters = {}
+      cutter_rates = {}
+      local cutter1_start_x = 0
+      local cutter1_finish_x = 128/a
+      cutters[1] = Cutter:new(1,cutter1_start_x,cutter1_finish_x)
+      cutter_rates[1] = 1
 
-    local cutter_spacing = 128/a
-    for i=2,a,1
-    do
-      local new_cutter_start_x, new_cutter_finish_x
-      new_cutter_start_x = cutter_spacing*(i-1)
-      new_cutter_finish_x = cutter_spacing*(i)
+      local cutter_spacing = 128/a
+      for i=2,a,1
+      do
+        local new_cutter_start_x, new_cutter_finish_x
+        new_cutter_start_x = cutter_spacing*(i-1)
+        new_cutter_finish_x = cutter_spacing*(i)
+        table.insert(cutters, i, Cutter:new(i, new_cutter_start_x, new_cutter_finish_x))
+        table.insert(cutter_rates, i,1)
+      end
+    elseif a == 1 then
+      cutters = {}
+      cutter_rates = {}
+      local cutter1_start_x = 0
+      local cutter1_finish_x = 128/a
+      cutters[1] = Cutter:new(1,cutter1_start_x,cutter1_finish_x)
+      cutter_rates[1] = 1
+    else
+      -- make cuts according to sample levels
+      cutters = {}
+      cutter_rates = {}
 
-      -- local new_cutter_finish_x = new_cutter_start_x + (cutters[active_cutter]:get_finish_x() - cutters[active_cutter]:get_start_x())
-      table.insert(cutters, i, Cutter:new(i, new_cutter_start_x, new_cutter_finish_x))
-      table.insert(cutter_rates, i,1)
+      -- get the cut indices and resort them lowest to highest
+      local sorted_cut_indices = cut_detector.get_sorted_cut_indices()
+      autogen_cut_indices = {}
+      for i=1,a-1,1
+      do
+        local new_cutter1, new_cutter2
+        new_cutter1 = sorted_cut_indices[i] and sorted_cut_indices[i] or 0
+        table.insert(autogen_cut_indices,new_cutter1)
+      end
+      
+      table.sort(autogen_cut_indices)
+      -- print(">>>>>>>>>>>>")
+      -- tab.print(autogen_cut_indices)
+      -- print(">>>>>>")
+
+      local cutter_first_start_x = 0
+      local cutter_first_finish_x = autogen_cut_indices[1]
+      cutters[1] = Cutter:new(1,cutter_first_start_x,cutter_first_finish_x)
+      cutter_rates[1] = 1
+
+      for i=1,a-1,1
+      do
+        local new_cutter_start_x = autogen_cut_indices[i]
+        local new_cutter_finish_x = autogen_cut_indices[i+1] and autogen_cut_indices[i+1] or 128
+        -- print(i+1, new_cutter_start_x, new_cutter_finish_x)
+        table.insert(cutters, i+1, Cutter:new(i+1, new_cutter_start_x, new_cutter_finish_x))
+        table.insert(cutter_rates, i+1,1)
+      end
     end
     sample_player.cutters_start_finish_update()
-
-
     active_cutter = 1
     cutter_to_play = 1
     local display_mode = nav_active_control == 3 and 1 or 2
     cutters[1]:set_display_mode(display_mode)
-    sample_player.update()
+    sample_player.update()     
   end
 end
 
@@ -347,18 +353,13 @@ function sample_player.draw_top_nav (msg)
       clip_loc = math.floor(clip_loc * 10^3 + 0.5) / 10^3 -- round to nearest 1000th
       subnav_title = subnav_title .. ": " .. clip_loc
     elseif nav_active_control == 5 then
-      -- local rate = play_mode > 2 and cutter_rates[active_cutter] or cutter_rates[1]
-      -- local cutter_to_show = play_mode > 2 and active_cutter or 1
       local rate = cutter_rates[active_cutter]
       local cutter_to_show = active_cutter
       subnav_title = subnav_title .. "[" .. cutter_to_show .. "]: " .. rate
     elseif nav_active_control == 6 then
       subnav_title = subnav_title .. ": " .. level
     elseif nav_active_control == 7 then
-      -- subnav_title = subnav_title .. ": " .. record_mode_text[record_mode]  
-      -- if record_mode == 4 then subnav_title = subnav_title .. ": " .. autogen end
       subnav_title = subnav_title .. ": " .. autogen
-      -- if record_mode == 4 then subnav_title = subnav_title .. ": " .. autogen end
     end
 
     screen.level(15)
@@ -398,11 +399,13 @@ function sample_player.update()
       local x_pos = 0
       for i,s in ipairs(waveform_samples) do
         local height = util.round(math.abs(s) * (scale*level))
+        cut_detector.set_height(math.abs(s) * 10000)
         screen.move(util.linlin(0,128,10,120,x_pos), 35 - height)
         screen.line_rel(0, 2 * height)
         screen.stroke()
         x_pos = x_pos + 1
       end
+      cut_detector.set_height_completed()
       screen.level(15)
       if playhead_position and playhead_position >= 10 and playhead_position <=120 then
         screen.move(playhead_position,18)

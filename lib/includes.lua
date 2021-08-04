@@ -19,5 +19,5 @@ sample_player = include "clipper/lib/sample_player"
 sample_recorder = include "clipper/lib/sample_recorder"
 instructions = include "clipper/lib/instructions"
 include "clipper/lib/Cutter"
--- cutup_pages = include("clipper/lib/cutup_pages")
 controller = include("clipper/lib/controller")
+cut_detector = include("clipper/lib/cut_detector")

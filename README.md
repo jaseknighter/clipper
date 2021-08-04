@@ -36,7 +36,8 @@ access instructions for key/encoder controls within the script by pressing k1+e3
   * k2/k3: delete/add cutter
   * e3: adjust level
 * Screen 7: autogenerate cutters
-  * e3: set # of clips to autogenerate (up to 20)
+  * e3: autogenerate clips by level (up to 20)
+  * k1 + e3: autogenerate clips with even spacing (up to 20)
 
 ### recording clips
 clips may be recorded from the PARAMETERS>EDIT menu. what gets recorded depends on the `play mode` setting:

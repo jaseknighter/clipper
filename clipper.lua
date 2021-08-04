@@ -1,6 +1,6 @@
 ---clipper
--- 1.0 @jaseknighter
--- lines: llllllll.co/t/<lines id>
+-- 1.1 @jaseknighter
+-- lines: llllllll.co/t/47147
 --
 -- k1+e3: show instructions
 
@@ -73,14 +73,11 @@ function set_redraw_timer()
     -- screen.clear()
     if menu_status == false and initializing == false then
       sample_player.update()
-      -- controller.update()
       -- screen_dirty = false
       clear_subnav = true
     elseif menu_status == true and clear_subnav == true then
       -- screen_dirty = true
       clear_subnav = false
-      -- screen.clear()
-      -- screen.update()
     end
   end, SCREEN_FRAMERATE, -1)
   redrawtimer:start()  

@@ -27,7 +27,6 @@ local enc = function (n, d)
             sample_player.cutters_start_finish_update()
             if play_mode > 1 and cutter_to_play == active_cutter then sample_player.reset() end 
           else
-            -- active_cutter_edge = util.clamp(active_cutter_edge + d,1, #cutters*2)
             cutters[active_cutter]:rotate_cutter_edge(d)
           end
         elseif nav_active_control == 4 then
@@ -52,7 +51,6 @@ local enc = function (n, d)
             rate = rate + d
             rate = rate ~= 0 and rate or rate + d
             rate = util.clamp(rate,-20,20)
-            -- if play_mode < 2 then cutter_rates[1] = rate else cutter_rates[active_cutter] = rate end
             cutter_rates[active_cutter] = rate 
             sample_player.reset() 
           end
@@ -70,16 +68,9 @@ local enc = function (n, d)
             local display_mode = nav_active_control == 3 and 1 or 2  
             cutters[new_active_cutter]:set_display_mode(display_mode)
             active_cutter = new_active_cutter
-            -- if play_mode == 3 then cutter_to_play = active_cutter end
-            -- if play_mode > 1 then 
-              cutter_to_play = active_cutter 
-              selected_cutter_group = active_cutter
-              sample_player.reset() 
-            -- end
-
-            -- if play_mode < 2 then
-            --   -- active_cutter = nil
-            -- end
+            cutter_to_play = active_cutter 
+            selected_cutter_group = active_cutter
+            sample_player.reset() 
           end
         else
           nav_active_control = util.clamp(nav_active_control+d,1,#sample_player_nav_labels)
@@ -122,7 +113,6 @@ local enc = function (n, d)
             sample_player.cutters_start_finish_update()
             if play_mode > 1 and cutter_to_play == active_cutter then sample_player.reset() end 
           else
-            -- active_cutter_edge = util.clamp(active_cutter_edge + d,1, #cutters*2)
             cutters[active_cutter]:rotate_cutter_edge(d)
           end
         elseif nav_active_control == 4 then
@@ -163,7 +153,6 @@ local enc = function (n, d)
         elseif nav_active_control == 7 then
           autogen = util.clamp(autogen+d,1,20)
           sample_player.autogenerate_cutters(autogen)
-          -- sample_player.set_record_mode(new_record_mode)
         end
       end
     end
@@ -204,15 +193,11 @@ local key = function (n,z)
           cutter_to_play = 1
 
           local display_mode = nav_active_control == 3 and 1 or 2
-          -- clock.run(sample_player.set_display_mode,display_mode)
           cutters[active_cutter]:set_display_mode(display_mode)
           sample_player.update()
         elseif nav_active_control == 7 then
 
         end
-        --   sample_player.copy_cut()
-        --   -- if not dismiss_K2_message then dismiss_K2_message = true end
-        -- end
       elseif n==3 and z==1 then
         if nav_active_control == 1 then
           playing = playing == 1 and 0 or 1
@@ -228,9 +213,6 @@ local key = function (n,z)
             new_cutter_start_x = cutters[active_cutter]:get_start_x() - 20
             new_cutter_finish_x = new_cutter_start_x + 10
           end
-
-          -- local new_cutter_finish_x = new_cutter_start_x + (cutters[active_cutter]:get_finish_x() - cutters[active_cutter]:get_start_x())
-      
           table.insert(cutters, active_cutter+1, Cutter:new(active_cutter+1, new_cutter_start_x, new_cutter_finish_x))
           table.insert(cutter_rates, active_cutter+1,cutter_rates[active_cutter])
           sample_player.cutters_start_finish_update()
@@ -242,9 +224,6 @@ local key = function (n,z)
         end
         local display_mode = nav_active_control == 3 and 1 or 2
         cutters[active_cutter]:set_display_mode(display_mode)
-
-        -- saved = "ss7-"..string.format("%04.0f",10000*math.random())..".wav"
-        -- softcut.buffer_write_mono(_path.dust.."/audio/"..saved,1,length,1)
         sample_player.update()
       end
     end
