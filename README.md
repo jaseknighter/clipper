@@ -4,7 +4,7 @@ slice and save samples for monome norns
 ## instructions
 
 ### key/encoder controls
-access instructions for key/encoder controls within the script by pressing k1+e3
+access instructions for key/encoder controls within the script by pressing k1 + k3
 
 * All screens
   * e2: next/prev control

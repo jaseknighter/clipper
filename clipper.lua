@@ -2,7 +2,7 @@
 -- 1.1 @jaseknighter
 -- lines: llllllll.co/t/47147
 --
--- k1+e3: show instructions
+-- k1+k3: show instructions
 
 -------------------------
 -- code based on softcut studies: https://monome.org/docs/norns/softcut/
