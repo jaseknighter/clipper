@@ -52,7 +52,7 @@ clips may be recorded from the PARAMETERS>EDIT menu. what gets recorded depends 
 
 *important note*: if *play mode* is set to `all cuts`, all *rate* settings must either be positive or negative. 
 
-## cv player/recorder instructions
+## cv recorder instructions
 
 the cv player code is deeply indebted to the `cvdelay` script built into @whimsicalraps [bowering](https://github.com/whimsicalraps/bowering) crow script loader
 
