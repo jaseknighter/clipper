@@ -1,6 +1,9 @@
 # clipper
 slice and save samples, record and play cv for monome crow and norns. 
 
+* [sample player instructions](#sample-player-instructions)
+* [cv recorder instructions](#cv-recorder-instructions)
+
 ## sample player instructions
 
 ### key/encoder controls
