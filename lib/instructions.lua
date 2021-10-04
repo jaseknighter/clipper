@@ -8,17 +8,17 @@ instructions.display = function ()
   screen.text("e2: next/prev control")
   screen.move(5, 28)
 
-  if (nav_active_control == 1) then
+  if (sample_player.nav_active_control == 1) then
     screen.text("k2: select sample")
     screen.move(5, 36)
     screen.text("e3: incr/decr playhead")
     screen.move(5, 44)
     screen.text("k3: start/stop playhead")
-  elseif (nav_active_control == 2) then
+  elseif (sample_player.nav_active_control == 2) then
     screen.text("k2/k3: delete/add cutter")
     screen.move(5, 36)
     screen.text("e3: change play mode")
-  elseif (nav_active_control == 3) then
+  elseif (sample_player.nav_active_control == 3) then
     screen.text("k2/k3: delete/add cutter")
     screen.move(5, 36)
     screen.text("k1 + e2: select cutter")
@@ -28,7 +28,7 @@ instructions.display = function ()
     screen.text("k1 + e1: fine adjust cutter")
     screen.move(5, 60)
     screen.text("e3: select cutter end")
-  elseif (nav_active_control == 4) then
+  elseif (sample_player.nav_active_control == 4) then
     screen.text("k2/k3: delete/add cutter")
     screen.move(5, 36)
     screen.text("k1 + e2: select cutter")
@@ -36,7 +36,7 @@ instructions.display = function ()
     screen.text("k1 + e3: adjust cutter")
     screen.move(5, 52)
     screen.text("k1 + e1: fine adjust cutter")
-  elseif (nav_active_control == 5) then
+  elseif (sample_player.nav_active_control == 5) then
     screen.text("k2/k3: delete/add cutter")
     screen.move(5, 36)
     screen.text("k1 + e2: select rate")
@@ -46,11 +46,11 @@ instructions.display = function ()
     screen.text("k1 + e1: fine adjust rate")
     screen.move(5, 60)
     screen.text("k1 + e3: adj selected rate")
-  elseif (nav_active_control == 6) then
+  elseif (sample_player.nav_active_control == 6) then
     screen.text("k2/k3: delete/add cutter")
     screen.move(5, 36)
     screen.text("e3: adjust level")
-  elseif (nav_active_control == 7) then
+  elseif (sample_player.nav_active_control == 7) then
     screen.text("e3: autogen by level")
     screen.move(5, 36)
     screen.text("k1 + e3: autogen evenly")

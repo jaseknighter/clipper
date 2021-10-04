@@ -1,43 +1,37 @@
 --------------------------
 -- play samples
 --------------------------
-saved = "..."
-level = 1.0
-rec = 1.0
-pre = 1.0
+local elipsis_counter = 0
+local saved = "..."
+local level = 1.0
+local rec = 1.0
+local pre = 1.0
 -- rate = 1
-length = 1
-sample_position = 1
-last_sample_position = nil
-playhead_position = 1
-selecting = false
-file_selected = false
-waveform_loaded = false
-subnav_title = ""
-playing = 0
-cutters = {}
-cutter_rates = {1,1}
-active_cutter = 1
+local length = 1
+local sample_position = 1
+local last_sample_position = nil
+local playhead_position = 1
+local selecting = false
+local file_selected = false
+local waveform_loaded = false
+local subnav_title = ""
+local playing = 0
+local cutters = {}
+local cutter_rates = {1,1}
+local active_cutter = 1
 
-selected_cutter_group = 1
-
-play_mode = 1 
-record_mode = 2
-autogen = 1 --5
-cutter_start_x_sec, cutter_finish_x_sec = nil
-cutter_to_play = 1
-
-left_side = 10
-right_side = 120
-
-
-
-
-sample_player = {}
+local selected_cutter_group = 1
+local play_mode = 1 
+local record_mode = 2
+local autogen = 1 --5
+local cutter_start_x_sec, cutter_finish_x_sec = nil
+local cutter_to_play = 1
+local left_side = 10
+local right_side = 120
 sample_player.nav_active_control = 1
 
 sample_player.nav_labels = {
-  "k2 to select a sample",
+  "k2 to select sample",
   "play mode",
   "adj cut ends",
   "move cutter",
@@ -52,6 +46,9 @@ sample_player.play_mode_text = {
   "all cuts",
   "sel cut",
 }
+
+sample_player = {}
+
 function sample_player.load_file(file)
   selecting = false
   if file ~= "cancel" then
@@ -142,7 +139,6 @@ function sample_player.on_render(ch, start, i, s)
 end
 
 function sample_player.cutters_start_finish_update()
-  -- print("cutters_start_finish_update")
   for i=1,#cutters,1
   do
     if cutters[i] then
@@ -153,6 +149,7 @@ function sample_player.cutters_start_finish_update()
       cutters[i]:cutters_start_finish_update(
         start_x, finish_x
       )
+      print("cutters_start_finish_update",start_x, finish_x)
     end
   end
 end
@@ -316,7 +313,6 @@ function sample_player.draw_sub_nav ()
   screen.fill()
 end
 
-local elipsis_counter = 0
 function set_saving_elipses()
   elipsis_counter = elipsis_counter + 1
   if elipsis_counter == 30 then 

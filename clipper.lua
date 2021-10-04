@@ -25,7 +25,7 @@ function init()
   norns.enc.sens(2,6)
   norns.enc.sens(3,6)
 
-  pages = UI.Pages.new(0, 1)
+  pages = UI.Pages.new(0, 2)
     
   -- set_redraw_timer()
   -- controller.init()
@@ -33,7 +33,6 @@ function init()
   page_scroll(1)
   set_redraw_timer()
   set_params()
-  
   initializing = false
 end
 
@@ -72,7 +71,11 @@ function set_redraw_timer()
     menu_status = norns.menu.status()
     -- screen.clear()
     if menu_status == false and initializing == false then
-      sample_player.update()
+      if pages.index == 1 then
+        sample_player.update()
+      else
+        cv_player.update()
+      end
       -- screen_dirty = false
       clear_subnav = true
     elseif menu_status == true and clear_subnav == true then

@@ -21,3 +21,7 @@ instructions = include "clipper/lib/instructions"
 include "clipper/lib/Cutter"
 controller = include("clipper/lib/controller")
 cut_detector = include("clipper/lib/cut_detector")
+
+cv_player = include("clipper/lib/cv_player")
+
+parameters = include("clipper/lib/parameters")

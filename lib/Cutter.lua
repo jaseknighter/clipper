@@ -86,7 +86,7 @@ function Cutter:key(n,z)
     --   -- if not dismiss_K2_message then dismiss_K2_message = true end
     -- end
   elseif n==3 and z==1 then
-    -- if nav_active_control == 1 and waveform_loaded then
+    -- if sample_player.nav_active_control == 1 and waveform_loaded then
     --   playing = playing == 1 and 0 or 1
     --   softcut.play(1, playing)
     -- end
