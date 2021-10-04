@@ -53,7 +53,7 @@ clips may be recorded from the PARAMETERS>EDIT menu. what gets recorded depends 
 
 the cv player code is deeply indebted to the `cvdelay` script built into @whimsicalraps [bowering](https://github.com/whimsicalraps/bowering) crow script loader
 
-### key/encoder controls
+### main features
 * record up to 20 seconds of cv into crow input 1. 
 * crow outputs 1-4 replay the recorded cv with delay set by 4 delay taps. 
 * set length of the cv from 10ms-20000ms (0.01s-20s)
